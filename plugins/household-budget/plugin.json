@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "household-budget",
+  "version": "0.1.0",
+  "description": "Match receipts and Amazon orders to YNAB and review proposed budget changes.",
+  "interface": {
+    "displayName": "Household Budget",
+    "shortDescription": "Review receipts, Amazon orders, and uncategorized YNAB transactions."
+  },
+  "extensions": {
+    "com.openai": { "requires_local_executor": true }
+  }
+}

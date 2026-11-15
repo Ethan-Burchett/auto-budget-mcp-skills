@@ -1,0 +1,12 @@
+{
+  "name": "household-tools",
+  "interface": { "displayName": "Household Tools" },
+  "plugins": [
+    {
+      "name": "household-budget",
+      "source": { "source": "local", "path": "./plugins/household-budget" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_USE" },
+      "category": "Productivity"
+    }
+  ]
+}

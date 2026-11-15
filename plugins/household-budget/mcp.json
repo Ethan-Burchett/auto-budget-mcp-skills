@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "ynab": {
+      "type": "stdio",
+      "command": "/bin/zsh",
+      "args": ["${PLUGIN_ROOT}/scripts/run-connector.zsh", "ynab"]
+    },
+    "amazon-orders": {
+      "type": "stdio",
+      "command": "/bin/zsh",
+      "args": ["${PLUGIN_ROOT}/scripts/run-connector.zsh", "amazon-orders"]
+    }
+  }
+}
