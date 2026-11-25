@@ -41,16 +41,20 @@ Reuse these receipt-budget rules when the transaction details support them:
 - Clothing goes to Clothing - Ethan, India Clothing, or Baby only when the
   wearer is known from transaction details or established history. Ask when
   the wearer is unclear.
-- Split one third of identifiable grocery spending and Household Basics
-  spending with Sawyer for purchases. Refunds do not get the automatic share.
-  Keep other categories whole unless the user assigns them a Sawyer share.
-  Use the linked Transfer : Sawyer payee whose transfer account is Sawyer.
-- Apply purchase-specific Sawyer instructions first.
 
 A retailer name alone may cover many kinds of purchases. Do not infer item
 contents, clothing wearer, or a mixed-purchase split from a broad payee alone.
 When evidence is weak, show the transaction as uncertain and ask rather than
 guessing. Do not change existing splits or linked transfers.
+
+## Roommate
+
+Read the `## Roommate` section in `~/.config/auto-budget/roommate.md` before
+proposing roommate splits. Apply rules for this workflow, with any explicit
+transaction-specific instruction taking precedence. If the file or an applicable
+rule is missing, continue without an automatic roommate split. Before adding
+any roommate transfer, use `search_payees` to verify that its
+`transfer_account_id` matches the intended YNAB account.
 
 ## Review and approval
 
@@ -77,6 +81,6 @@ including `approved`. Use orange (`agent-generated`) for purchases and red
 for refunds, and call out existing flags that would change.
 
 After writing, read back every changed transaction and compare category,
-amount, memo, flag, and split lines. Verify linked Sawyer transfers and their
-amounts in Sawyer's account. Report any failed or partial changes and retain
+amount, memo, flag, and split lines. Verify linked roommate transfers and their
+amounts in the destination account. Report any failed or partial changes and retain
 operation or journal references returned by the server.

@@ -1,6 +1,6 @@
 ---
 name: receipt-budget
-description: Match a retail receipt photo, scan, or PDF to a YNAB transaction and propose categories, item memos, and Sawyer splits. Use for grocery, clothing, household goods, and mixed retail receipts.
+description: Match a retail receipt photo, scan, or PDF to a YNAB transaction and propose categories, item memos, and roommate splits. Use for grocery, clothing, household goods, and mixed retail receipts.
 ---
 
 # Retail Receipt Reconciliation
@@ -87,17 +87,14 @@ and preserve existing meaningful text without duplication. Use short item lists
 in split memos to show what each line covers. For refunds, identify the returned
 items and mark the memo as a refund. Ask when an item cannot be identified.
 
-## Sawyer
+## Roommate and split allocation
 
-Across retailers, split one third of the grocery portion and one third of the
-Household Basics portion of purchases with Sawyer. The grocery portion includes
-Shared groceries, Junk Food, Beverages, and Alcohol. Keep the remaining two
-thirds in their original categories. Keep the other two thirds of Household Basics in
-Household Basics. On mixed receipts, apply the rule to grocery and Household
-Basics items. Clothing and Household Extras get a Sawyer share only when the
-user assigns one. Apply any
-purchase-specific Sawyer rule the user supplies first. Refunds are excluded
-from the automatic one-third purchase split.
+Read the `## Roommate` section in `~/.config/auto-budget/roommate.md` before
+proposing roommate splits. Apply rules for this workflow, with any explicit
+transaction-specific instruction taking precedence. If the file or an applicable
+rule is missing, continue without an automatic roommate split. Before adding
+any roommate transfer, use `search_payees` to verify that its
+`transfer_account_id` matches the intended YNAB account.
 
 Use the receipt's printed net line amounts where available. Apply discounts
 reflected in those amounts once. Use printed tax groups to constrain allocation.
@@ -105,17 +102,12 @@ Allocate shared discounts, taxes, and fees across the items they cover in propor
 eligible amounts, assigning residual cents deterministically in receipt order.
 For multiple tenders, use item allocations shown by the receipt or ask when
 items cannot be assigned confidently to the matched payment. Calculate each
-eligible portion's one-third share to the nearest cent and subtract it from
-that portion. If groceries span multiple categories, prorate the rounded
-grocery share across those categories and subtract each allocation from its
-category. Use integer cents for calculations and verify that the split sums
-exactly to the posted payment. Send amounts to Oliver in currency units,
-with negative amounts for purchases and positive amounts for refunds.
-
-Keep the transaction in the account that paid it. Look up the actual **Transfer
-to Sawyer** payee with `search_payees`. Its API name is `Transfer : Sawyer`.
-Use the `payeeId` whose `transfer_account_id` is the Sawyer account. Put that
-payee on Sawyer's split line. The plain `Transfer Sawyer` payee is unlinked.
+eligible group's roommate share to the nearest cent and subtract it from that
+group. If a group spans multiple categories, prorate its rounded share across
+those categories and subtract each allocation from its category. Use integer
+cents and verify that the split sums exactly to the posted payment. Send
+amounts to Oliver in currency units, with negative amounts for purchases and
+positive amounts for refunds.
 
 ## Preview, write, and verify
 
@@ -129,7 +121,7 @@ existing flags that would change. Put the flag on the parent transaction.
 Leave ambiguous matches listed for manual review.
 
 Use `update_transaction` for one row and `update_transactions` for a batch.
-Use `subtransactions` for new splits, with amounts, categories or Sawyer
+Use `subtransactions` for new splits, with amounts, categories or linked roommate
 transfer payees, and item memos. Check support for the transaction's imported
 status. Leave existing split lines intact. If a split cannot be written to
 the matched transaction, report the limitation and ask for direction before
@@ -145,6 +137,6 @@ or changed transaction state requires a fresh preview and approval. After an
 uncertain write, read current state before considering a retry.
 
 Inspect verification results and read back the transaction to compare
-categories, amounts, memos, flags, and split lines. Verify Sawyer's linked
-transfer and amount in his account. Report failed or partial changes and
+categories, amounts, memos, flags, and split lines. Verify any linked roommate
+transfer and its amount in the destination account. Report failed or partial changes and
 retain any operation or journal references returned by the server.

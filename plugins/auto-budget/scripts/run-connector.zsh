@@ -9,11 +9,11 @@ case "${1:-}" in
     budget_dir="$HOME/.config/household-budget"
     token_file="$budget_dir/ynab-token"
     if [[ ! -s "$token_file" ]]; then
-      print -u2 "Household Budget: run the YNAB setup step in README.md."
+      print -u2 "Auto Budget: run the YNAB setup step in README.md."
       exit 1
     fi
     if ! command -v npx >/dev/null; then
-      print -u2 "Household Budget: install Node.js 20 or newer, then restart Codex."
+      print -u2 "Auto Budget: install Node.js 20 or newer, then restart Codex."
       exit 1
     fi
     export YNAB_API_TOKEN="$(<"$token_file")"
@@ -25,7 +25,7 @@ case "${1:-}" in
     ;;
   amazon-orders)
     if ! command -v uvx >/dev/null; then
-      print -u2 "Household Budget: install uv to use Amazon Orders, then restart Codex."
+      print -u2 "Auto Budget: install uv to use Amazon Orders, then restart Codex."
       exit 1
     fi
     exec uvx amazon-orders-mcp@2.4.0

@@ -1,7 +1,7 @@
-# Household Budget for Codex
+# Auto Budget for Codex
 
 Use a receipt photo or PDF to match a charge in **Joint Budget - Current**.
-Codex proposes categories, item notes, and Sawyer's share, then asks you to
+Codex proposes categories, item notes, and any roommate share, then asks you to
 approve the exact change before saving it. The plugin also handles Amazon
 purchases and helps review recent uncategorized transactions.
 
@@ -27,9 +27,9 @@ purchases and helps review recent uncategorized transactions.
    Keep the token out of chat. Setup starts in read-only mode.
 4. **Install the plugin.** Open this repository folder as a project in
    Codex desktop. Restart the app if needed. In **Plugins**, choose the
-   **Household Tools** source, then install **Household Budget**. Start a new
+   **Household Tools** source, then install **Auto Budget**. Start a new
    Codex chat in the project.
-5. **Check access.** In that chat, ask: “Using Household Budget, check whether
+5. **Check access.** In that chat, ask: “Using Auto Budget, check whether
    my YNAB connection can see Joint Budget - Current. List only the matching
    plan name.” Opening the plan in YNAB checks sharing. Seeing it here checks
    the API access your token actually has.
@@ -39,13 +39,27 @@ purchases and helps review recent uncategorized transactions.
 
    ```sh
    codex plugin marketplace add .
-   codex plugin add household-budget@household-tools
+   codex plugin add auto-budget@household-tools
    ```
 
-   Once the repo is on a private GitHub remote, the first command can use
-   `OWNER/REPO` in place of `.` if your computer already has GitHub access
-   to that repo. Keep a local copy for the token setup script. See the
+   When installing from GitHub, use
+   `Ethan-Burchett/auto-budget-mcp-skills` in place of `.` once your computer
+   has access to the repo. Keep a checkout for the token setup script. See the
    [Codex marketplace documentation][marketplace] for details.
+
+## Configure roommate rules
+
+To use automatic roommate splits, copy [roommate.example.md](roommate.example.md)
+to your local rules file and edit it for your household.
+
+```sh
+mkdir -p ~/.config/auto-budget
+cp roommate.example.md ~/.config/auto-budget/roommate.md
+```
+
+Receipt, grocery, Amazon, and auto-budget all use this file. Without it, the
+skills still propose categories and memos. You can still request a split for
+a specific transaction.
 
 ## Reconcile a receipt
 
@@ -66,7 +80,7 @@ zsh setup-ynab.zsh enable-writes
 ```
 
 Ask Codex for an exact preview. After you approve that preview, Codex saves
-and verifies the change, including any linked Sawyer transfer. To return to
+and verifies the change, including any linked roommate transfer. To return to
 read-only mode, run `zsh setup-ynab.zsh disable-writes` and restart Codex.
 
 ## Review Amazon purchases or uncategorized charges
@@ -90,9 +104,10 @@ read-only mode, run `zsh setup-ynab.zsh disable-writes` and restart Codex.
   token is the account you used to open the shared plan in YNAB. For expired or
   revoked credentials, run the token setup again.
 - If Codex shows two similarly named connectors, choose the ones provided
-  by Household Budget. Disable duplicate connections if you no longer use
+  by Auto Budget. Disable duplicate connections if you no longer use
   them, especially when they sign into a different account.
-- The household rules live in [receipt-budget](plugins/household-budget/skills/receipt-budget/SKILL.md).
+- Receipt categorization lives in [receipt-budget](plugins/auto-budget/skills/receipt-budget/SKILL.md).
+  The household split example lives in [roommate.example.md](roommate.example.md).
   Pantry and grocery receipts use the same rules. Amazon and auto-budget have
   workflow-specific instructions in their own skill folders.
 - Keep the repository private if publishing to GitHub. It contains household

@@ -39,22 +39,18 @@ description: Reconcile Amazon purchases against YNAB transactions and propose ca
    existing memo content, and call out any existing flag that would change.
 10. Follow the preview and write workflow below.
 
-## Sawyer
+## Roommate
 
-For Amazon purchases, transfer one third of the amount assigned to **Household
-Basics** to Sawyer and keep the remainder in that category. For mixed orders,
-base Sawyer's share on the Household Basics items, including their allocated
-tax, discounts, and shipping. Round Sawyer's share to the nearest cent and
-subtract it from the Household Basics amount so the split totals exactly.
-Apply this rule only to purchases. Apply a purchase-specific Sawyer rule
-first when one is supplied.
+Read the `## Roommate` section in `~/.config/auto-budget/roommate.md` before
+proposing roommate splits. Apply rules for this workflow, with any explicit
+transaction-specific instruction taking precedence. If the file or an applicable
+rule is missing, continue without an automatic roommate split. Before adding
+any roommate transfer, use `search_payees` to verify that its
+`transfer_account_id` matches the intended YNAB account.
 
-For purchases or split shares Sawyer owes us for, keep the charge in the account
-that paid it and use **Transfer to Sawyer** as the payee for Sawyer's amount.
-Resolve the payee with `search_payees`. YNAB's API calls it `Transfer : Sawyer`.
-Use the `payeeId` whose `transfer_account_id` matches the Sawyer account. The
-plain `Transfer Sawyer` payee has no account link. For a shared purchase, put
-the transfer payee on Sawyer's split line.
+For mixed orders, use only eligible items and their allocated tax, discounts,
+and shipping. Round the roommate share to the nearest cent and deduct it from
+the eligible category amount so the split totals exactly.
 
 ## Preview and write with Oliver
 
@@ -93,7 +89,7 @@ server detects changed state, obtain a fresh preview and approval.
 
 Report the outcome from the write response. Treat a successful response as
 completion and report any failed entries or uncertain result as returned.
-Do not make follow-up calls to verify saved transactions or the Sawyer account,
+Do not make follow-up calls to verify saved transactions or the roommate transfer account,
 look up the undo journal, or retry an uncertain write. Retain any operation ID
 or journal reference included in the write response.
 

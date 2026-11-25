@@ -3,8 +3,8 @@
   "interface": { "displayName": "Household Tools" },
   "plugins": [
     {
-      "name": "household-budget",
-      "source": { "source": "local", "path": "./plugins/household-budget" },
+      "name": "auto-budget",
+      "source": { "source": "local", "path": "./plugins/auto-budget" },
       "policy": { "installation": "AVAILABLE", "authentication": "ON_USE" },
       "category": "Productivity"
     }
